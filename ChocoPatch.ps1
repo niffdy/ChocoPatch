@@ -1,5 +1,14 @@
-﻿# to do 
-# test if chocolatey is installed, if not install it
+﻿# Use at your own risk.  For Windows only.  This will script will attempt to do the following 
+# Download Chocolatey if not installed
+# Download matching applications text file
+# Read your installed apps
+# Update your applications based on a match in the Chocolatey repository.  
+
+if ((Get-Command "chocolatey.exe" -ErrorAction SilentlyContinue) -eq $null) 
+{ 
+   Write-Host "Unable to find chocolatey, let's install"
+   (iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')))>$null 2>&1
+}
 
 $url = "https://raw.githubusercontent.com/niffdy/ChocoPatch/master/appmatch.csv"
 $csvapplist = "$env:TEMP\appmatchtemp.csv"
